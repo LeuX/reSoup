@@ -5,8 +5,13 @@
   "version": "0.1",
   "content_scripts": [
     {
-      "matches": ["http://www.soup.io/*"],
-      "js": ["reSoup.js"]
+      "matches": [
+        "http://www.soup.io/*"
+      ],
+      "js": [
+        "bower_components/jquery/dist/jquery.min.js",
+        "reSoup.js"
+      ]
     }
   ],
   "permissions": [

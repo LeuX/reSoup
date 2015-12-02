@@ -1,10 +1,3 @@
-console.debug("NOW IS", new Date());
-// No tabs or host permissions needed!
-document.body.style.backgroundColor="red";
-
-/*
-$('#user-container').each(function (elem) {
-    console.debug("frrrt");
-    $(elem).css('border-width', 'thick');
-})
- */
+$('.user_container').each(function (_,elem) {
+    $(elem).css("border", "3px solid red" );
+});
