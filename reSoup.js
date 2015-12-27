@@ -27,8 +27,22 @@ var findPost = function (scrollTop, recPosts) {
     }
 };
 
+function updateSince(uri, value) {
+    var key = 'since';
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+        return uri + separator + key + "=" + value;
+    }
+}
+
 $(window).scroll(function () {
     var wS = $(this).scrollTop();
     var post = findPost(wS, posts);
     console.debug("scrolled", wS, post);
+    window.history.replaceState(null, "",
+        updateSince(window.location.href, post.elemId.substring(4)));
 });
