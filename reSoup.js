@@ -1,16 +1,10 @@
 var posts = $('.post').map(function (idx, elem) {
     var jqe = $(elem);
-    var wS = $(this).scrollTop();
-    var post = {
+    return {
         top: jqe.offset().top,
         height: jqe.outerHeight(),
         elemId: jqe.attr('id')
     };
-    return post;
-});
-
-posts.sort(function (a, b) {
-    return a.top - b.top;
 });
 
 var findPost = function (scrollTop, recPosts) {
@@ -27,7 +21,7 @@ var findPost = function (scrollTop, recPosts) {
     }
 };
 
-function updateSince(uri, value) {
+var updateSince = function (uri, value) {
     var key = 'since';
     var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
     var separator = uri.indexOf('?') !== -1 ? "&" : "?";
@@ -37,12 +31,15 @@ function updateSince(uri, value) {
     else {
         return uri + separator + key + "=" + value;
     }
-}
+};
+
+posts.sort(function (a, b) {
+    return a.top - b.top;
+});
 
 $(window).scroll(function () {
     var wS = $(this).scrollTop();
     var post = findPost(wS, posts);
-    console.debug("scrolled", wS, post);
     window.history.replaceState(null, "",
         updateSince(window.location.href, post.elemId.substring(4)));
 });
