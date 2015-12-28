@@ -1,12 +1,3 @@
-var posts = $('.post').map(function (idx, elem) {
-    var jqe = $(elem);
-    return {
-        top: jqe.offset().top,
-        height: jqe.outerHeight(),
-        elemId: jqe.attr('id')
-    };
-});
-
 var findPost = function (scrollTop, recPosts) {
     var length = recPosts.length;
     if (length === 1) {
@@ -33,9 +24,23 @@ var updateSince = function (uri, value) {
     }
 };
 
-posts.sort(function (a, b) {
-    return a.top - b.top;
-});
+var initPosts = function () {
+    var ret = $('.post').map(function (idx, elem) {
+        var jqe = $(elem);
+        return {
+            top: jqe.offset().top,
+            height: jqe.outerHeight(),
+            elemId: jqe.attr('id')
+        };
+    });
+
+    ret.sort(function (a, b) {
+        return a.top - b.top;
+    });
+    return ret;
+};
+
+var posts = initPosts();
 
 $(window).scroll(function () {
     var wS = $(this).scrollTop();
