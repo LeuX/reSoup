@@ -43,3 +43,7 @@ $(window).scroll(function () {
     window.history.replaceState(null, "",
         updateSince(window.location.href, post.elemId.substring(4)));
 });
+
+if (location.search.indexOf("?since=") >= 0){
+    window.scrollTo(0,0);
+}
