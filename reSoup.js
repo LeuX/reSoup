@@ -49,6 +49,14 @@ $(window).scroll(function () {
         updateSince(window.location.href, post.elemId.substring(4)));
 });
 
-if (location.search.indexOf("?since=") >= 0){
-    window.scrollTo(0,0);
+if (location.search.indexOf("?since=") >= 0) {
+    window.scrollTo(0, 0);
 }
+
+chrome.runtime.onMessage.addListener(
+    function (request) {
+        if (request.reSoup === "gatherPosts") {
+            console.log("Reinitialising post list")
+            posts = initPosts();
+        }
+    });
