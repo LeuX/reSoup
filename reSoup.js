@@ -42,16 +42,16 @@ var initPosts = function () {
 
 var posts = initPosts();
 
+if (location.search.indexOf("?since=") >= 0) {
+    window.scrollTo(0, 0);
+}
+
 $(window).scroll(function () {
     var wS = $(this).scrollTop();
     var post = findPost(wS, posts);
     window.history.replaceState(null, "",
         updateSince(window.location.href, post.elemId.substring(4)));
 });
-
-if (location.search.indexOf("?since=") >= 0) {
-    window.scrollTo(0, 0);
-}
 
 chrome.runtime.onMessage.addListener(
     function (request) {
